@@ -42,7 +42,10 @@ public:
 	bool checkCollision(int a, int b);
 	bool checkCollision(int a, int b, glm::vec3 trans);
 	int checkButton(double x, double y, int id);
+	void lerArqTile(string caminho);
 
+	string tile;
+	int largura, altura;
 	Tela telaAtual;
 
 private:

@@ -182,10 +182,11 @@ void SceneManager::render()
 	// bind Texture
 	// Bind Textures using texture units
 
-		draw(glm::vec3(0, 0, 0), texture[1], 0, glm::vec3(1.0f, 1.0f, 1), 3, 10);
-
-		draw(glm::vec3(0 + (scale[texture[1]-1].x/3)/2, (0 + scale[texture[1] - 1].y / 10)/2, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), 3, 10);
-
+	for (int i = 0; i < largura; ++i) {
+		for (int j = 0; j < altura; ++j) {
+			draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1]);
+		}
+	}
 
 		for(int i = 0; i < 7; i++)
 		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1);
@@ -213,6 +214,8 @@ void SceneManager::render()
 
 void SceneManager::run()
 {
+
+	lerArqTile("Tilemap.txt");
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 	do {
@@ -449,4 +452,34 @@ int SceneManager::checkButton(double x, double y, int id)
 	}
 	else
 		return 0;
+}
+
+void SceneManager::lerArqTile(string caminho)
+{
+	ifstream tilemap(caminho, ios::in);
+
+	if (!tilemap)
+
+	{
+
+		cout << "Arquivo nao encontrado!" << endl;
+
+	}
+
+	else
+
+	{
+
+		while (!tilemap.eof())
+		{
+			tilemap >> tile;
+			tilemap >> qtdSpritesX[texture[1] - 1];
+			tilemap >> qtdSpritesY[texture[1] - 1];
+			tilemap >> largura;
+			tilemap >> altura;
+		}
+
+		tilemap.close();
+
+	}
 }
