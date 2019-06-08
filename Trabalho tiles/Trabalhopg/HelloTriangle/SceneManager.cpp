@@ -184,7 +184,7 @@ void SceneManager::render()
 
 		draw(glm::vec3(0, 0, 0), texture[1], 0, glm::vec3(1.0f, 1.0f, 1), 3, 10);
 
-		draw(glm::vec3(0.5, 0, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), 3, 10);
+		draw(glm::vec3(0 + (scale[texture[1]-1].x/3)/2, (0 + scale[texture[1] - 1].y / 10)/2, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), 3, 10);
 
 
 		for(int i = 0; i < 7; i++)
@@ -354,7 +354,13 @@ int SceneManager::setupTexture(GLchar *path)
 	{
 		std::cout << "Failed to load texture" << std::endl;
 	}
+
+	this->scale[text - 1].x = size[text - 1][0] / 400.0f;
+	this->scale[text - 1].y = size[text - 1][1] / 300.0f;
+	this->scale[text - 1].z = 1;
+
 	stbi_image_free(data);
+
 
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 
@@ -369,12 +375,10 @@ int SceneManager::setupTexture(GLchar *path)
 void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY)
 {
 	this->transform[index-1] = transform;
-	this->scale[index - 1].x = scale.x;
-	this->scale[index - 1].y = scale.y;
-	this->scale[index - 1].z = 1;
+	
 
-	this->multScale[index - 1].x = size[index - 1][0] / 400.0f * scale.x / qtdSpritesX;
-	this->multScale[index - 1].y = size[index - 1][1] / 300.0f * scale.y / qtdSpritesY;
+	this->multScale[index - 1].x = this->scale[index - 1].x * scale.x / qtdSpritesX;
+	this->multScale[index - 1].y = this->scale[index - 1].y * scale.y / qtdSpritesY;
 	this->multScale[index - 1].z = 1;
 	this->qtdSpritesX[index - 1] = qtdSpritesX;
 	this->qtdSpritesY[index - 1] = qtdSpritesY;
