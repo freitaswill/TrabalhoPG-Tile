@@ -9,6 +9,7 @@ out vec2 TexCoord;
 uniform mat4 model;
 uniform mat4 projection;
 uniform float offsetX;
+uniform float offsetY;
 uniform float qtdSpritesX;
 uniform float qtdSpritesY;
 
@@ -18,5 +19,5 @@ void main()
 	ourColor = color;
 	// We swap the y-axis by substracing our coordinates from 1. This is done because most images have the top y-axis inversed with OpenGL's top y-axis.
 	// TexCoord = texCoord;
-	TexCoord = vec2(texCoord.x/ qtdSpritesX + offsetX , (1.0 - texCoord.y) / qtdSpritesY);
+	TexCoord = vec2(texCoord.x/ qtdSpritesX + offsetX , (1.0 - texCoord.y) / qtdSpritesY + offsetY);
 }

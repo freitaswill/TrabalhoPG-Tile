@@ -10,7 +10,7 @@
 #include <ctime>
 
 
-enum Tela{ tJogo, tMenu, tCreditos, tInstrucoes, tGameOver, sair };
+enum Tela { tJogo, tMenu, tCreditos, tInstrucoes, tGameOver, sair };
 
 class SceneManager
 {
@@ -37,11 +37,12 @@ public:
 	void setupScene();
 	void setupCamera2D();
 	int setupTexture(GLchar *path);
-	void draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY);
+	void draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY);
 	//static void tMenu();
 	bool checkCollision(int a, int b);
 	bool checkCollision(int a, int b, glm::vec3 trans);
 	int checkButton(double x, double y, int id);
+	void tileWalking();
 	void lerArqTile(string caminho);
 
 	string tile;
@@ -51,13 +52,14 @@ public:
 private:
 	int telaGameOver;
 	GLchar *path;
-	GLfloat characterPositionX=0, characterPositionY=0, offsetBG1, offsetBG2; 
-	GLfloat obstaculoX[7]{ 7, 8, 9, 3, 4, 5, 6 }, obstaculoY[7] { 0, 1, 2, 3, 4, 5, 6 };
+	GLfloat characterPositionX = 0, characterPositionY = 0, offsetBG1, offsetBG2;
+	GLfloat obstaculoX[7]{ 7, 8, 9, 3, 4, 5, 6 }, obstaculoY[7]{ 0, 1, 2, 3, 4, 5, 6 };
 	double xpos, ypos;
 	bool jumping = false, caindo = false;
 	GLfloat qtdSpritesX[9];
 	GLfloat qtdSpritesY[9];
 	int velSprites = 0;
+	float spritesheet = 0;
 
 	//GFLW window
 	GLFWwindow *window;
@@ -77,7 +79,7 @@ private:
 	//Texture index
 	unsigned int texture[9];
 
-	float offsetX = 0, offset[9]{};
+	float offsetX = 0, offset[9]{}, offsetY = 0;
 
 	//Transform index
 	glm::vec3 transform[9];

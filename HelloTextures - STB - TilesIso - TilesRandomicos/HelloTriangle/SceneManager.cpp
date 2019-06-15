@@ -19,7 +19,7 @@ void SceneManager::initialize(GLuint w, GLuint h)
 {
 	width = 800;
 	height = 600;
-	
+
 	telaAtual = tMenu;
 
 	// GLFW - GLEW - OPENGL general setup -- TODO: config file
@@ -44,7 +44,7 @@ void SceneManager::initializeGraphics()
 
 	//Setando a callback de redimensionamento da janela
 	glfwSetWindowSizeCallback(window, resize);
-	
+
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -66,7 +66,7 @@ void SceneManager::initializeGraphics()
 
 void SceneManager::addShader(string vFilename, string fFilename)
 {
-	shader = new Shader (vFilename.c_str(), fFilename.c_str());
+	shader = new Shader(vFilename.c_str(), fFilename.c_str());
 }
 
 
@@ -125,7 +125,7 @@ void SceneManager::render()
 	offsetX = float();
 
 	// Get their uniform location
-	
+
 
 	// Pass them to the shaders
 
@@ -135,18 +135,7 @@ void SceneManager::render()
 		resized = false;
 	}
 
-	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS) {
-		characterPositionX += 0.05f;
-	}
-	if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS) {
-		characterPositionX -= 0.05f;
-	}
-	if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS) {
-		characterPositionY += 0.05f;
-	}
-	if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS) {
-		characterPositionY -= 0.05f;
-	}
+	tileWalking();
 
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS && jumping == false) {
 		jumping = true;
@@ -158,7 +147,7 @@ void SceneManager::render()
 
 	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS /*&& jumping == false*/) {
 		/*jumping = true;*/
-		for(int i = 0; i < 7; i++){
+		for (int i = 0; i < 7; i++) {
 			obstaculoX[i] += 0.035f;
 		}
 	}
@@ -167,47 +156,53 @@ void SceneManager::render()
 	//}
 
 	/*if (jumping == true && caindo == false) {
-		characterPositionY += 0.03f;
-		if (characterPositionY >= 0.5f){
-			caindo = true; jumping = false;
-		}
+	characterPositionY += 0.03f;
+	if (characterPositionY >= 0.5f){
+	caindo = true; jumping = false;
+	}
 	}
 	else if (caindo) {
-		characterPositionY -= 0.03f;
-		if (characterPositionY <= 0) {
-			characterPositionY = 0;
-			caindo = false;
-		}
+	characterPositionY -= 0.03f;
+	if (characterPositionY <= 0) {
+	characterPositionY = 0;
+	caindo = false;
+	}
 	}*/
 	// bind Texture
 	// Bind Textures using texture units
 
 	for (int i = 0; i < largura; ++i) {
 		for (int j = 0; j < altura; ++j) {
-			draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1]);
-		}
+			draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0);
+		} 
 	}
 
-		for(int i = 0; i < 7; i++)
-		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1);
+	if (velSprites % 15 == 0) {
+		spritesheet += 1.0f;
+	}
 
-		for(int i = 0; i <7; i++)
+	draw(glm::vec3(characterPositionX, characterPositionY, 0), texture[4], 0, glm::vec3(2, 2, 1), 4, 4, spritesheet);
+
+	for (int i = 0; i < 7; i++)
+		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1 , 0);
+
+	for (int i = 0; i <7; i++)
 		if (checkCollision(texture[2] - 1, texture[1] - 1, glm::vec3(obstaculoX[i], obstaculoY[i], 1)))
 		{
 			telaAtual = tGameOver;
 		}
 
-	
+
 
 	/*if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		glfwGetCursorPos(window, &xpos, &ypos);
-		if (checkButton(xpos, ypos, texture[0]) == 0) {
-			cout << "colidiu\n";
-		}
-		if (checkButton(xpos, ypos, texture[0]) == 1) {
-			cout << " NNN  colidiu\n";
-		}
+	glfwGetCursorPos(window, &xpos, &ypos);
+	if (checkButton(xpos, ypos, texture[0]) == 0) {
+	cout << "colidiu\n";
+	}
+	if (checkButton(xpos, ypos, texture[0]) == 1) {
+	cout << " NNN  colidiu\n";
+	}
 	}*/
 }
 
@@ -221,11 +216,11 @@ void SceneManager::run()
 	do {
 		// Measure speed
 		double currentTime = glfwGetTime();
-		nbFrames+=1;
+		nbFrames += 1;
 		velSprites += 1;
 		if (currentTime - lastTime >= 0.016f) { // If last prinf() was more than 1 sec ago
-											 // printf and reset timer
-			cout << "frames\n" << 1000.0 / double(nbFrames);
+												// printf and reset timer
+			//cout << "frames\n" << 1000.0 / double(nbFrames);
 			nbFrames = 0;
 			velSprites += 1;
 			lastTime += 0.016f;
@@ -241,8 +236,8 @@ void SceneManager::run()
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
 		}
-		}while (!glfwWindowShouldClose(window) && telaAtual != sair);
-	
+	} while (!glfwWindowShouldClose(window) && telaAtual != sair);
+
 }
 
 void SceneManager::finish()
@@ -291,25 +286,25 @@ void SceneManager::setupScene()
 	glEnableVertexAttribArray(2);
 
 
-		texture[0] = setupTexture("../textures/tJogo.png");
+	texture[0] = setupTexture("../textures/tJogo.png");
 
-		texture[1] = setupTexture("../textures/tile1.png");
+	texture[1] = setupTexture("../textures/tile1.png");
 
-		texture[2] = setupTexture("../textures/tile1.png");
+	texture[2] = setupTexture("../textures/tile1.png");
 
-		texture[3] = setupTexture("../textures/tMenu.png");
+	texture[3] = setupTexture("../textures/tMenu.png");
 
-		texture[4] = setupTexture("../textures/tGameOver.png");
+	texture[4] = setupTexture("../textures/george.png");
 
-		texture[5] = setupTexture("../textures/tCreditos.png");
+	texture[5] = setupTexture("../textures/tCreditos.png");
 
-		texture[6] = setupTexture("../textures/tInstrucoes.png");
+	texture[6] = setupTexture("../textures/tInstrucoes.png");
 
-		texture[7] = setupTexture("../textures/tJogo1.png");
+	texture[7] = setupTexture("../textures/tJogo1.png");
 
-		texture[8] = setupTexture("../textures/tJogo2.png");
+	texture[8] = setupTexture("../textures/tJogo2.png");
 
-		texture[9] = setupTexture("../textures/tile.png");
+	texture[9] = setupTexture("../textures/tile.png");
 
 }
 
@@ -317,7 +312,7 @@ void SceneManager::setupCamera2D()
 {
 	//corrigindo o aspecto
 	float ratio;
-	float xMin = -1.0, xMax = 1.0, yMin = -1.0, yMax = 1.0, zNear = -1.0, zFar = 1.0;
+	float xMin = 0.0, xMax = 800.0, yMin = 600.0, yMax = 0.0, zNear = -1.0, zFar = 1.0;
 
 
 	// Get their uniform location
@@ -328,12 +323,12 @@ void SceneManager::setupCamera2D()
 int SceneManager::setupTexture(GLchar *path)
 {
 	unsigned int text;
-	
+
 	// load and create a texture 
 	// -------------------------
 	glGenTextures(1, &text);
 	glBindTexture(GL_TEXTURE_2D, text); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-										   // set the texture wrapping parameters
+										// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// set texture filtering parameters
@@ -344,10 +339,10 @@ int SceneManager::setupTexture(GLchar *path)
 	int width, height, nrChannels;
 	//unsigned char *data = SOIL_load_image("../textures/wall.jpg", &width, &height, 0, SOIL_LOAD_RGB);
 	unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
-	
-	size[text-1][0] = width;
-	size[text-1][1] = height;
-	
+
+	size[text - 1][0] = width;
+	size[text - 1][1] = height;
+
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -375,10 +370,10 @@ int SceneManager::setupTexture(GLchar *path)
 	return text;
 }
 
-void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY)
+void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY)
 {
-	this->transform[index-1] = transform;
-	
+	this->transform[index - 1] = transform;
+
 
 	this->multScale[index - 1].x = this->scale[index - 1].x * scale.x / qtdSpritesX;
 	this->multScale[index - 1].y = this->scale[index - 1].y * scale.y / qtdSpritesY;
@@ -387,13 +382,15 @@ void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec
 	this->qtdSpritesY[index - 1] = qtdSpritesY;
 
 	GLint modelLoc = glGetUniformLocation(shader->Program, "model");
-	model = glm::translate(model, glm::vec3(this->transform[index-1]));
-	model = glm::scale(model, glm::vec3(this->multScale[index-1]));
+	model = glm::translate(model, glm::vec3(this->transform[index - 1]));
+	model = glm::scale(model, glm::vec3(this->multScale[index - 1]));
 
-	this->offset[index-1] = offset * 1/qtdSpritesX;
+	this->offset[index - 1] = offset * 1 / qtdSpritesX;
 
 	GLint offsetXx = glGetUniformLocation(shader->Program, "offsetX");
-	offsetX = this->offset[index-1];
+	GLint offsetYy = glGetUniformLocation(shader->Program, "offsetY");
+	offsetX = this->offset[index - 1];
+	this->offsetY = offsetY / qtdSpritesY;
 
 	GLint qtdSpritesXx = glGetUniformLocation(shader->Program, "qtdSpritesX");
 
@@ -402,17 +399,18 @@ void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec
 	glBindTexture(GL_TEXTURE_2D, index);
 	glUniform1i(glGetUniformLocation(shader->Program, "ourTexture1"), 0);
 
-	
+
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform1f(offsetXx, offsetX);
+	glUniform1f(offsetYy, this->offsetY);
 	glUniform1f(qtdSpritesXx, qtdSpritesX);
 	glUniform1f(qtdSpritesYy, qtdSpritesY);
 	// render container
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	
-	model = glm::scale(model, glm::vec3(1.0f/ this->multScale[index - 1].x, 1.0f / this->multScale[index - 1].y, 1.0f / this->multScale[index - 1].z));
-	model = glm::translate(model, glm::vec3(-this->transform[index-1]));
+
+	model = glm::scale(model, glm::vec3(1.0f / this->multScale[index - 1].x, 1.0f / this->multScale[index - 1].y, 1.0f / this->multScale[index - 1].z));
+	model = glm::translate(model, glm::vec3(-this->transform[index - 1]));
 	glBindTexture(GL_TEXTURE_2D, index);
 	glUniform1i(glGetUniformLocation(shader->Program, "ourTexture1"), 0);
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -427,7 +425,7 @@ bool SceneManager::checkCollision(int a, int b)
 		return false;
 	}
 	else
-	return true;
+		return true;
 }
 
 bool SceneManager::checkCollision(int a, int b, glm::vec3 trans)
@@ -447,11 +445,32 @@ int SceneManager::checkButton(double x, double y, int id)
 	if ((x >= transform[id].x * 800 - size[id][0] / 2 * scale[id].x &&
 		x <= transform[id].x * 800 + size[id][0] / 2 * scale[id].x) &&
 		(y >= transform[id].y * 600 - size[id][1] / 2 * scale[id].y &&
-		y <= transform[id].y * 600 + size[id][1] / 2 * scale[id].y)) {
+			y <= transform[id].y * 600 + size[id][1] / 2 * scale[id].y)) {
 		return 1;
 	}
 	else
 		return 0;
+}
+
+void SceneManager::tileWalking()
+{
+
+	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS) {
+		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+	}
+	else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS) {
+		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	}
+	else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS) {
+		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	}
+	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS) {
+		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	}
 }
 
 void SceneManager::lerArqTile(string caminho)
