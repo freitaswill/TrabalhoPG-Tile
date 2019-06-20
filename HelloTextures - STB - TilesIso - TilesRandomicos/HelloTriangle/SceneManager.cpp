@@ -172,8 +172,8 @@ void SceneManager::render()
 	// Bind Textures using texture units
 	glfwGetCursorPos(window, &xpos, &ypos);
 
-	xpos -= width / 2;
-	ypos -= height / 2;
+	xpos -= width * 0.5f;
+	ypos -= height * 0.67f;
 
 	xpos *= -1;
 	ypos *= -1;
@@ -500,7 +500,7 @@ int SceneManager::checkButton(double x, double y, int id)
 void SceneManager::tileWalking()
 {
 
-	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS) {
+	/*if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS) {
 		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
 		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
 	}
@@ -515,7 +515,129 @@ void SceneManager::tileWalking()
 	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS) {
 		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
 		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	}*/
+
+	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && mapa[tileX + 1][tileY]) {
+		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		direcao = 3;
+		//character.setAnimacao(2);
+		//character.avancarAnimacao();
 	}
+	else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && mapa[tileX - 1][tileY]) {
+		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+		direcao = 4;
+		//character.setAnimacao(1);
+		//character.avancarAnimacao();
+	}
+	else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && mapa[tileX][tileY - 1]) {
+		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+		direcao = 1;
+		//character.setAnimacao(3);
+		//character.avancarAnimacao();
+	}
+	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && mapa[tileX][tileY + 1]) {
+		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+		direcao = 2;
+		//character.setAnimacao(0);
+		//character.avancarAnimacao();
+	}
+
+
+	//if (direcao == 1) {
+	//	characterPositionY /*-= vel*/;
+	//	if (characterPositionY + 50 == yAux) {
+	//		direcao = 0;
+	//		tileY -= 1;
+	//	}
+	//}
+	//else if (direcao == 2) {
+	//	characterPositionY /*+= vel*/;
+	//	if (characterPositionY - 50 == yAux) {
+	//		direcao = 0;
+	//		tileY += 1;
+	//	}
+	//}
+	//else if (direcao == 3) {
+	//	characterPositionX /*+= vel*/;
+	//	if (characterPositionX - 50 == xAux) {
+	//		direcao = 0;
+	//		tileX += 1;
+	//	}
+	//}
+	//else if (direcao == 4) {
+	//	characterPositionX /*-= vel*/;
+	//	if (characterPositionX + 50 == xAux) {
+	//		direcao = 0;
+	//		tileX -= 1;
+	//	}
+	//}
+
+
+	/*{
+		if (gTeclado.segurando[TECLA_W] && direcao == 0 && mapa[tileX][tileY - 1] == 0){
+			xAux = x;
+			yAux = y;
+			character.setAnimacao(3);
+			character.avancarAnimacao();
+			direcao = 1;
+		}
+
+		else if (gTeclado.segurando[TECLA_S] && direcao == 0 && mapa[tileX][tileY + 1] == 0){
+			xAux = x;
+			yAux = y;
+			character.setAnimacao(0);
+			character.avancarAnimacao();
+			direcao = 2;
+		}
+		else if (gTeclado.segurando[TECLA_D] && direcao == 0 && mapa[tileX + 1][tileY] == 0){
+			xAux = x;
+			yAux = y;
+			character.setAnimacao(2);
+			character.avancarAnimacao();
+			direcao = 3;
+		}
+		else if (gTeclado.segurando[TECLA_A] && direcao == 0 && mapa[tileX - 1][tileY] == 0){
+			xAux = x;
+			yAux = y;
+			character.setAnimacao(1);
+			character.avancarAnimacao();
+			direcao = 4;
+		}*/
+	/*if (direcao == 1) {
+			y -= vel;
+			if (y + 50 == yAux) {
+				direcao = 0;
+				tileY -= 1;
+			}
+		}
+		else if (direcao == 2) {
+			y += vel;
+			if (y - 50 == yAux) {
+				direcao = 0;
+				tileY += 1;
+			}
+		}
+		else if (direcao == 3) {
+			x += vel;
+			if (x - 50 == xAux) {
+				direcao = 0;
+				tileX += 1;
+			}
+		}
+		else if (direcao == 4) {
+			x -= vel;
+			if (x + 50 == xAux) {
+				direcao = 0;
+				tileX -= 1;
+			}
+		}
+	}*/
+
+
 }
 
 void SceneManager::lerArqTile(string caminho)

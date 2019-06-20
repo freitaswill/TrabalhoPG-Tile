@@ -50,6 +50,13 @@ public:
 	Tela telaAtual;
 
 private:
+
+	//espero que seja isso
+	int direcao = 0;
+	int tileX = 1, tileY = 1, xAux, yAux;
+	int mapa[13][13]; //o que deveria estar entre os colchetes?
+	
+
 	int telaGameOver;
 	GLchar *path;
 	GLfloat characterPositionX = 0, characterPositionY = 0, offsetBG1, offsetBG2;
