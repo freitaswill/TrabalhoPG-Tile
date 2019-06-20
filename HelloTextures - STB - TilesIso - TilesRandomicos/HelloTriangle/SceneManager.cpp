@@ -85,7 +85,7 @@ void SceneManager::key_callback(GLFWwindow * window, int key, int scancode, int 
 
 void SceneManager::mouseCursorCallback(GLFWwindow* window, double x, double y)
 {
-	cout << x << ": " << y << endl;
+	//cout << x << ": " << y << endl;
 }
 
 void SceneManager::resize(GLFWwindow * window, int w, int h)
@@ -170,10 +170,50 @@ void SceneManager::render()
 	}*/
 	// bind Texture
 	// Bind Textures using texture units
+	glfwGetCursorPos(window, &xpos, &ypos);
+
+	xpos -= width / 2;
+	ypos -= height / 2;
+
+	xpos *= -1;
+	ypos *= -1;
+
+	mouse_grid_x = floor((ypos / 64) - (xpos / 128));
+	mouse_grid_y = floor((-xpos / 128) - (ypos / 64));
+
+	//mouse_grid_y += mouse_grid_x;
+
+	
+
+
+	/*int mouse_grid_x = xpos / 128;//(size[text - 1][0] / qtdSpritesX);
+	int mouse_grid_y = ypos / 64;
+
+	mouse_grid_x = mouse_grid_x - mouse_grid_y / 2;
+	mouse_grid_y = mouse_grid_x + mouse_grid_y / 2;*/
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
+	{
+		cout << mouse_grid_x << " " << mouse_grid_y << endl;
+	}
+
+	cout << mouse_grid_x << " " << mouse_grid_y << endl;
 
 	for (int i = 0; i < largura; ++i) {
 		for (int j = 0; j < altura; ++j) {
-			draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0);
+			if (mouse_grid_x == i && mouse_grid_y == j)
+			{
+				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
+				/*if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
+				{
+					characterPositionX = ;
+					characterPositionY = ;
+				}*/
+			}
+			else
+			{
+				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 0);
+			}
 		} 
 	}
 
@@ -181,10 +221,10 @@ void SceneManager::render()
 		spritesheet += 1.0f;
 	}
 
-	draw(glm::vec3(characterPositionX, characterPositionY, 0), texture[4], 0, glm::vec3(2, 2, 1), 4, 4, spritesheet);
+	draw(glm::vec3(characterPositionX, characterPositionY, 0), texture[4], 0, glm::vec3(2, 2, 1), 4, 4, spritesheet, 0);
 
 	for (int i = 0; i < 7; i++)
-		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1 , 0);
+		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1 , 0, 0);
 
 	for (int i = 0; i <7; i++)
 		if (checkCollision(texture[2] - 1, texture[1] - 1, glm::vec3(obstaculoX[i], obstaculoY[i], 1)))
@@ -253,10 +293,10 @@ void SceneManager::setupScene()
 	// ------------------------------------------------------------------
 	float vertices[] = {
 		// positions          // colors           // texture coords
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+		0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f, // top right
+		0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f, // bottom right
+		-0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f, // bottom left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f  // top left 
 	};
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
@@ -370,8 +410,10 @@ int SceneManager::setupTexture(GLchar *path)
 	return text;
 }
 
-void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY)
+void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY, int cor)
 {
+	this->clique = cor;
+
 	this->transform[index - 1] = transform;
 
 
@@ -396,6 +438,8 @@ void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec
 
 	GLint qtdSpritesYy = glGetUniformLocation(shader->Program, "qtdSpritesY");
 
+	GLint cliquee = glGetUniformLocation(shader->Program, "clique");
+
 	glBindTexture(GL_TEXTURE_2D, index);
 	glUniform1i(glGetUniformLocation(shader->Program, "ourTexture1"), 0);
 
@@ -405,6 +449,7 @@ void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec
 	glUniform1f(offsetYy, this->offsetY);
 	glUniform1f(qtdSpritesXx, qtdSpritesX);
 	glUniform1f(qtdSpritesYy, qtdSpritesY);
+	glUniform1f(cliquee, clique);
 	// render container
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

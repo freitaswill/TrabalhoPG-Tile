@@ -37,7 +37,7 @@ public:
 	void setupScene();
 	void setupCamera2D();
 	int setupTexture(GLchar *path);
-	void draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY);
+	void draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY, int cor);
 	//static void tMenu();
 	bool checkCollision(int a, int b);
 	bool checkCollision(int a, int b, glm::vec3 trans);
@@ -55,12 +55,13 @@ private:
 	GLfloat characterPositionX = 0, characterPositionY = 0, offsetBG1, offsetBG2;
 	GLfloat obstaculoX[7]{ 7, 8, 9, 3, 4, 5, 6 }, obstaculoY[7]{ 0, 1, 2, 3, 4, 5, 6 };
 	double xpos, ypos;
+	int mouse_grid_x, mouse_grid_y;
 	bool jumping = false, caindo = false;
 	GLfloat qtdSpritesX[9];
 	GLfloat qtdSpritesY[9];
 	int velSprites = 0;
 	float spritesheet = 0;
-
+	GLfloat clique;
 	//GFLW window
 	GLFWwindow *window;
 
