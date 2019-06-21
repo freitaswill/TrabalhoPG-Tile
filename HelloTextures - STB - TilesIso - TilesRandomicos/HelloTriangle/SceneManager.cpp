@@ -173,7 +173,7 @@ void SceneManager::render()
 	glfwGetCursorPos(window, &xpos, &ypos);
 
 	xpos -= width * 0.5f;
-	ypos -= height * 0.67f;
+	ypos -= height * 0.5f;
 
 	xpos *= -1;
 	ypos *= -1;
@@ -201,7 +201,7 @@ void SceneManager::render()
 
 	for (int i = 0; i < largura; ++i) {
 		for (int j = 0; j < altura; ++j) {
-			if (mouse_grid_x == i && mouse_grid_y == j)
+			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2))
 			{
 				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
 				/*if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
@@ -214,6 +214,7 @@ void SceneManager::render()
 			{
 				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 0);
 			}
+
 		} 
 	}
 
