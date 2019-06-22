@@ -151,50 +151,16 @@ void SceneManager::render()
 			obstaculoX[i] += 0.035f;
 		}
 	}
-	//if (glfwGetKey(window, GLFW_KEY_2) == GLFW_RELEASE) {
-	//	jumping = false;
-	//}
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) {
+		glfwGetCursorPos(window, &xpos, &ypos);
+		xpos -= width * 0.5f;
+		ypos -= height * 0.5f;
 
-	/*if (jumping == true && caindo == false) {
-	characterPositionY += 0.03f;
-	if (characterPositionY >= 0.5f){
-	caindo = true; jumping = false;
+		xpos *= -1;
+		ypos *= -1;
 	}
-	}
-	else if (caindo) {
-	characterPositionY -= 0.03f;
-	if (characterPositionY <= 0) {
-	characterPositionY = 0;
-	caindo = false;
-	}
-	}*/
-	// bind Texture
-	// Bind Textures using texture units
-	glfwGetCursorPos(window, &xpos, &ypos);
 
-	//Normalizando coordenadas de mouse
-	/*xpos = xpos / 400.0f;
-	ypos = ypos / 300.0f;*/
-
-	xpos -= width * 0.5f;
-	ypos -= height * 0.5f;
-
-	xpos *= -1;
-	ypos *= -1;
-
-	mouse_grid_x = floor((ypos / 64) - (xpos / 128));
-	mouse_grid_y = floor((-xpos / 128) - (ypos / 64));
-
-	//mouse_grid_y += mouse_grid_x;
-
-	/*int mouse_grid_x = xpos / 128;//(size[text - 1][0] / qtdSpritesX);
-	int mouse_grid_y = ypos / 64;
-
-	mouse_grid_x = mouse_grid_x - mouse_grid_y / 2;
-	mouse_grid_y = mouse_grid_x + mouse_grid_y / 2;*/
-
-	//cout << mouse_grid_x << " " << mouse_grid_y << endl;
-
+	
 	for (int i = 0; i < largura; ++i) {
 		for (int j = 0; j < altura; ++j) {
 
@@ -211,11 +177,6 @@ void SceneManager::render()
 			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2)){	
 				if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2(-xpos/400.0f, ypos/300.0f)) == true){
 					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
-					//std::cout << "Colidiu com " <<  <<  << endl;
-					cout << "Top left X Y: " << vTopLeft.x << " " << vTopLeft.y << endl;
-					cout << "Top right X Y: " << vTopRight.x << " " << vTopRight.y << endl;
-					cout << "Down left X Y: " << vDownLeft.x << " " << vDownLeft.y << endl;
-					cout << "Down right X Y: " << vDownRight.x  << " " << vDownRight.y << endl;
 				}
 				else if (checkTriangleCollision(vTopRight, vDownLeft, vDownRight, glm::vec2(-xpos / 400.0f, ypos / 300.0f)) == true) {
 					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
@@ -225,11 +186,6 @@ void SceneManager::render()
 					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
 
 				}
-
-				//Calcula da área para detectar a colisão
-				//Se area(ABD) for == area(ApB) + area(BpD) + area(DpA) então tem colisao
-				//Criar uma função colisa(área do triangulo, ponto)
-
 			}
 			else{
 				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
@@ -238,9 +194,6 @@ void SceneManager::render()
 	}
 
 
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS){
-		cout << vTopLeft.x << endl;
-	}
 
 	if (velSprites % 15 == 0) {
 		spritesheet += 1.0f;
@@ -268,12 +221,12 @@ void SceneManager::run(){
 		double currentTime = glfwGetTime();
 		nbFrames += 1;
 		velSprites += 1;
-		if (currentTime - lastTime >= 0.033f) { // If last prinf() was more than 1 sec ago
+		if (currentTime - lastTime >= 0.016f) { // If last prinf() was more than 1 sec ago
 												// printf and reset timer
 			//cout << "frames\n" << 1000.0 / double(nbFrames);
 			nbFrames = 0;
 			velSprites += 1;
-			lastTime += 0.033f;
+			lastTime += 0.016f;
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 
@@ -498,24 +451,6 @@ int SceneManager::checkButton(double x, double y, int id){
 }
 
 void SceneManager::tileWalking(){
-
-	/*if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS) {
-		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
-		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-	}
-	else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS) {
-		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
-	}
-	else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS) {
-		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
-	}
-	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS) {
-		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
-	}*/
-
 	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX + 1][tileY] != 0) {
 		xAux = characterPositionX;
 		yAux = characterPositionY;
@@ -536,103 +471,38 @@ void SceneManager::tileWalking(){
 		xAux = characterPositionX;
 		direcao = 2;
 	}
-
-
 	if (direcao == 1) {
-		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;;
-		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
+		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
+		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
 		if (characterPositionY + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) >= yAux) {
 			direcao = 0;
 			tileY -= 1;
 		}
 	}
 	else if (direcao == 2) {
-		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;
-		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
+		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
+		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
 		if (characterPositionY - (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) <= yAux) {
 			direcao = 0;
 			tileY += 1;
 		}
 	}
 	else if (direcao == 3) {
-		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
-		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;
+		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
+		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
 		if (characterPositionX - (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) <= xAux) {
 			direcao = 0;
 			tileX += 1;
 		}
 	}
 	else if (direcao == 4) {
-		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
-		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;
+		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
+		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
 		if (characterPositionX + (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) >= xAux) {
 			direcao = 0;
 			tileX -= 1;
 		}
 	}
-
-
-	/*{
-		if (gTeclado.segurando[TECLA_W] && direcao == 0 && mapa[tileX][tileY - 1] == 0){
-			xAux = x;
-			yAux = y;
-			character.setAnimacao(3);
-			character.avancarAnimacao();
-			direcao = 1;
-		}
-
-		else if (gTeclado.segurando[TECLA_S] && direcao == 0 && mapa[tileX][tileY + 1] == 0){
-			xAux = x;
-			yAux = y;
-			character.setAnimacao(0);
-			character.avancarAnimacao();
-			direcao = 2;
-		}
-		else if (gTeclado.segurando[TECLA_D] && direcao == 0 && mapa[tileX + 1][tileY] == 0){
-			xAux = x;
-			yAux = y;
-			character.setAnimacao(2);
-			character.avancarAnimacao();
-			direcao = 3;
-		}
-		else if (gTeclado.segurando[TECLA_A] && direcao == 0 && mapa[tileX - 1][tileY] == 0){
-			xAux = x;
-			yAux = y;
-			character.setAnimacao(1);
-			character.avancarAnimacao();
-			direcao = 4;
-		}*/
-	/*if (direcao == 1) {
-			y -= vel;
-			if (y + 50 == yAux) {
-				direcao = 0;
-				tileY -= 1;
-			}
-		}
-		else if (direcao == 2) {
-			y += vel;
-			if (y - 50 == yAux) {
-				direcao = 0;
-				tileY += 1;
-			}
-		}
-		else if (direcao == 3) {
-			x += vel;
-			if (x - 50 == xAux) {
-				direcao = 0;
-				tileX += 1;
-			}
-		}
-		else if (direcao == 4) {
-			x -= vel;
-			if (x + 50 == xAux) {
-				direcao = 0;
-				tileX -= 1;
-			}
-		}
-	}*/
-
-
 }
 
 void SceneManager::lerArqTile(string caminho){

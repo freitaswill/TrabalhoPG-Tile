@@ -56,7 +56,7 @@ private:
 
 	//espero que seja isso
 	int direcao = 0;
-	int tileX = 1, tileY = 1, xAux = 0, yAux = 0;
+	int tileX = 0, tileY = 0, xAux = 0, yAux = 0;
 	int mapaX[3][3]; //o que deveria estar entre os colchetes?
 	int mapaY[3][3];
 	int mapaCaminhavel[3][3];
