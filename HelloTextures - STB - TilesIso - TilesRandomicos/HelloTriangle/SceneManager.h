@@ -46,7 +46,7 @@ public:
 	void lerArqTile(string caminho);
 
 	bool checkTriangleCollision(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD, glm::vec2 mousePos);
-	int calculaArea(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD);
+	float calculaArea(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD);
 
 	string tile;
 	int largura, altura;
@@ -56,9 +56,11 @@ private:
 
 	//espero que seja isso
 	int direcao = 0;
-	int tileX = 1, tileY = 1, xAux, yAux;
-	int mapa[13][13]; //o que deveria estar entre os colchetes?
-	
+	int tileX = 1, tileY = 1, xAux = 0, yAux = 0;
+	int mapaX[3][3]; //o que deveria estar entre os colchetes?
+	int mapaY[3][3];
+	int mapaCaminhavel[3][3];
+	int vel = 0.1f;
 
 	int telaGameOver;
 	GLchar *path;

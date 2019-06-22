@@ -203,44 +203,42 @@ void SceneManager::render()
 			vDownLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
 			vDownRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));*/
 
-			vTopLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
-			vTopRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
-			vDownLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
-			vDownRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+			vTopLeft   = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
+			vTopRight  = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
+			vDownLeft  = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+			vDownRight = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
 
-			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2))
-			{	
-				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 0);
-
-				if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2(mouse_grid_x, mouse_grid_y)) == true)
-				{
-					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
-					//std::cout << "Colidiu" << endl;
+			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2)){	
+				if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2(-xpos/400.0f, ypos/300.0f)) == true){
+					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
+					//std::cout << "Colidiu com " <<  <<  << endl;
+					cout << "Top left X Y: " << vTopLeft.x << " " << vTopLeft.y << endl;
+					cout << "Top right X Y: " << vTopRight.x << " " << vTopRight.y << endl;
+					cout << "Down left X Y: " << vDownLeft.x << " " << vDownLeft.y << endl;
+					cout << "Down right X Y: " << vDownRight.x  << " " << vDownRight.y << endl;
 				}
+				else if (checkTriangleCollision(vTopRight, vDownLeft, vDownRight, glm::vec2(-xpos / 400.0f, ypos / 300.0f)) == true) {
+					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
 
-				//draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
-				/*if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
-				{
-					characterPositionX = ;
-					characterPositionY = ;
-				}*/
+				}
+				else {
+					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
+
+				}
 
 				//Calcula da área para detectar a colisão
 				//Se area(ABD) for == area(ApB) + area(BpD) + area(DpA) então tem colisao
 				//Criar uma função colisa(área do triangulo, ponto)
 
 			}
-			else
-			{
-				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 0);
+			else{
+				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
 			}
-
 		} 
 	}
 
 
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
-	{
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS){
 		cout << vTopLeft.x << endl;
 	}
 
@@ -254,28 +252,13 @@ void SceneManager::render()
 		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1 , 0, 0);
 
 	for (int i = 0; i <7; i++)
-		if (checkCollision(texture[2] - 1, texture[1] - 1, glm::vec3(obstaculoX[i], obstaculoY[i], 1)))
-		{
+		if (checkCollision(texture[2] - 1, texture[1] - 1, glm::vec3(obstaculoX[i], obstaculoY[i], 1))){
 			telaAtual = tGameOver;
 		}
-
-
-
-	/*if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-	{
-	glfwGetCursorPos(window, &xpos, &ypos);
-	if (checkButton(xpos, ypos, texture[0]) == 0) {
-	cout << "colidiu\n";
-	}
-	if (checkButton(xpos, ypos, texture[0]) == 1) {
-	cout << " NNN  colidiu\n";
-	}
-	}*/
 }
 
 
-void SceneManager::run()
-{
+void SceneManager::run(){
 
 	lerArqTile("Tilemap.txt");
 	double lastTime = glfwGetTime();
@@ -285,12 +268,12 @@ void SceneManager::run()
 		double currentTime = glfwGetTime();
 		nbFrames += 1;
 		velSprites += 1;
-		if (currentTime - lastTime >= 0.016f) { // If last prinf() was more than 1 sec ago
+		if (currentTime - lastTime >= 0.033f) { // If last prinf() was more than 1 sec ago
 												// printf and reset timer
 			//cout << "frames\n" << 1000.0 / double(nbFrames);
 			nbFrames = 0;
 			velSprites += 1;
-			lastTime += 0.016f;
+			lastTime += 0.033f;
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 
@@ -307,15 +290,13 @@ void SceneManager::run()
 
 }
 
-void SceneManager::finish()
-{
+void SceneManager::finish(){
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 }
 
 
-void SceneManager::setupScene()
-{
+void SceneManager::setupScene(){
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
 	float vertices[] = {
@@ -375,8 +356,7 @@ void SceneManager::setupScene()
 
 }
 
-void SceneManager::setupCamera2D()
-{
+void SceneManager::setupCamera2D(){
 	//corrigindo o aspecto
 	float ratio;
 	float xMin = 0.0, xMax = 800.0, yMin = 600.0, yMax = 0.0, zNear = -1.0, zFar = 1.0;
@@ -387,8 +367,7 @@ void SceneManager::setupCamera2D()
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
-int SceneManager::setupTexture(GLchar *path)
-{
+int SceneManager::setupTexture(GLchar *path){
 	unsigned int text;
 
 	// load and create a texture 
@@ -410,13 +389,11 @@ int SceneManager::setupTexture(GLchar *path)
 	size[text - 1][0] = width;
 	size[text - 1][1] = height;
 
-	if (data)
-	{
+	if (data){
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
-	else
-	{
+	else{
 		std::cout << "Failed to load texture" << std::endl;
 	}
 
@@ -437,8 +414,7 @@ int SceneManager::setupTexture(GLchar *path)
 	return text;
 }
 
-void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY, int cor)
-{
+void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec3 scale, GLfloat qtdSpritesX, GLfloat qtdSpritesY, GLfloat offsetY, int cor){
 	this->clique = cor;
 
 	this->transform[index - 1] = transform;
@@ -488,8 +464,7 @@ void SceneManager::draw(glm::vec3 transform, int index, GLfloat offset, glm::vec
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 }
 
-bool SceneManager::checkCollision(int a, int b)
-{
+bool SceneManager::checkCollision(int a, int b){
 	if ((transform[a].x + 1) * 400 + size[a][0] / 2 * scale[a].x <= (transform[b].x + 1) * 400 - size[b][0] / 2 * scale[b].x ||
 		(transform[a].x + 1) * 400 - size[a][0] / 2 * scale[a].x >= (transform[b].x + 1) * 400 + size[b][0] / 2 * scale[b].x ||
 		(transform[a].y - 1) * -300 + size[a][1] / 2 * scale[a].y <= (transform[b].y - 1) * -300 - size[b][1] / 2 * scale[b].y ||
@@ -500,8 +475,7 @@ bool SceneManager::checkCollision(int a, int b)
 		return true;
 }
 
-bool SceneManager::checkCollision(int a, int b, glm::vec3 trans)
-{
+bool SceneManager::checkCollision(int a, int b, glm::vec3 trans){
 	if ((trans.x + 1) * 400 + size[a][0] / 2 * scale[a].x <= (transform[b].x + 1) * 400 - (size[b][0] / qtdSpritesX[b]) / 2 * scale[b].x ||
 		(trans.x + 1) * 400 - size[a][0] / 2 * scale[a].x >= (transform[b].x + 1) * 400 + (size[b][0] / qtdSpritesX[b]) / 2 * scale[b].x ||
 		(trans.y - 1) * -300 + size[a][1] / 2 * scale[a].y <= (transform[b].y - 1) * -300 - size[b][1] / 2 * scale[b].y ||
@@ -512,8 +486,7 @@ bool SceneManager::checkCollision(int a, int b, glm::vec3 trans)
 		return true;
 }
 
-int SceneManager::checkButton(double x, double y, int id)
-{
+int SceneManager::checkButton(double x, double y, int id){
 	if ((x >= transform[id].x * 800 - size[id][0] / 2 * scale[id].x &&
 		x <= transform[id].x * 800 + size[id][0] / 2 * scale[id].x) &&
 		(y >= transform[id].y * 600 - size[id][1] / 2 * scale[id].y &&
@@ -524,8 +497,7 @@ int SceneManager::checkButton(double x, double y, int id)
 		return 0;
 }
 
-void SceneManager::tileWalking()
-{
+void SceneManager::tileWalking(){
 
 	/*if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS) {
 		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
@@ -544,64 +516,60 @@ void SceneManager::tileWalking()
 		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
 	}*/
 
-	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && mapa[tileX + 1][tileY]) {
-		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
-		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
+	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX + 1][tileY] != 0) {
+		xAux = characterPositionX;
+		yAux = characterPositionY;
 		direcao = 3;
-		//character.setAnimacao(2);
-		//character.avancarAnimacao();
 	}
-	else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && mapa[tileX - 1][tileY]) {
-		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX - 1][tileY] != 0) {
+		yAux = characterPositionY;
+		xAux = characterPositionX;
 		direcao = 4;
-		//character.setAnimacao(1);
-		//character.avancarAnimacao();
 	}
-	else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && mapa[tileX][tileY - 1]) {
-		characterPositionY += ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-		characterPositionX += (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX][tileY - 1] != 0) {
+		yAux = characterPositionY;
+		xAux = characterPositionX;
 		direcao = 1;
-		//character.setAnimacao(3);
-		//character.avancarAnimacao();
 	}
-	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && mapa[tileX][tileY + 1]) {
-		characterPositionY -= ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]));
-		characterPositionX -= (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]);
+	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX][tileY + 1] != 0) {
+		yAux = characterPositionY;
+		xAux = characterPositionX;
 		direcao = 2;
-		//character.setAnimacao(0);
-		//character.avancarAnimacao();
 	}
 
 
-	//if (direcao == 1) {
-	//	characterPositionY /*-= vel*/;
-	//	if (characterPositionY + 50 == yAux) {
-	//		direcao = 0;
-	//		tileY -= 1;
-	//	}
-	//}
-	//else if (direcao == 2) {
-	//	characterPositionY /*+= vel*/;
-	//	if (characterPositionY - 50 == yAux) {
-	//		direcao = 0;
-	//		tileY += 1;
-	//	}
-	//}
-	//else if (direcao == 3) {
-	//	characterPositionX /*+= vel*/;
-	//	if (characterPositionX - 50 == xAux) {
-	//		direcao = 0;
-	//		tileX += 1;
-	//	}
-	//}
-	//else if (direcao == 4) {
-	//	characterPositionX /*-= vel*/;
-	//	if (characterPositionX + 50 == xAux) {
-	//		direcao = 0;
-	//		tileX -= 1;
-	//	}
-	//}
+	if (direcao == 1) {
+		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;;
+		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
+		if (characterPositionY + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) >= yAux) {
+			direcao = 0;
+			tileY -= 1;
+		}
+	}
+	else if (direcao == 2) {
+		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;
+		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
+		if (characterPositionY - (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) <= yAux) {
+			direcao = 0;
+			tileY += 1;
+		}
+	}
+	else if (direcao == 3) {
+		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
+		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;
+		if (characterPositionX - (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) <= xAux) {
+			direcao = 0;
+			tileX += 1;
+		}
+	}
+	else if (direcao == 4) {
+		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2)*0.1f;
+		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2)*0.1f;
+		if (characterPositionX + (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) >= xAux) {
+			direcao = 0;
+			tileX -= 1;
+		}
+	}
 
 
 	/*{
@@ -667,33 +635,43 @@ void SceneManager::tileWalking()
 
 }
 
-void SceneManager::lerArqTile(string caminho)
-{
+void SceneManager::lerArqTile(string caminho){
 	ifstream tilemap(caminho, ios::in);
 
-	if (!tilemap)
-
-	{
-
+	if (!tilemap){
 		cout << "Arquivo nao encontrado!" << endl;
-
 	}
 
-	else
-
-	{
-
-		while (!tilemap.eof())
-		{
+	else{
+		int iToken;
+		while (!tilemap.eof()){
 			tilemap >> tile;
 			tilemap >> qtdSpritesX[texture[1] - 1];
 			tilemap >> qtdSpritesY[texture[1] - 1];
 			tilemap >> largura;
 			tilemap >> altura;
+
+			for (int y = 0; y < largura; y++)
+				for (int x = 0; x < altura; x++)
+				{
+					tilemap >> iToken;
+					mapaX[x][y] = iToken;
+				}
+			for (int y = 0; y < largura; y++)
+				for (int x = 0; x < altura; x++)
+				{
+					tilemap >> iToken;
+					mapaY[x][y] = iToken;
+				}
+			for (int y = 0; y < largura; y++)
+				for (int x = 0; x < altura; x++)
+				{
+					tilemap >> iToken;
+					mapaCaminhavel[x][y] = iToken;
+				}
+
+			tilemap.close();
 		}
-
-		tilemap.close();
-
 	}
 }
 
@@ -709,10 +687,10 @@ bool SceneManager::checkTriangleCollision(glm::vec2 vertA, glm::vec2 vertB, glm:
 	}
 }
 
-int SceneManager::calculaArea(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD)
+float SceneManager::calculaArea(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD)
 {	
 	//(X2, X1) * (Y3, Y1) - (X3, X1) * (Y2, Y1)
-	int area = abs(((vertB.x - vertA.x) * (vertD.y - vertA.y) - (vertD.x - vertA.x) * (vertB.y - vertA.y)) / 2);
+	float area = abs(((vertB.x - vertA.x) * (vertD.y - vertA.y) - (vertD.x - vertA.x) * (vertB.y - vertA.y)) / 2);
 
 	return area;
 }
