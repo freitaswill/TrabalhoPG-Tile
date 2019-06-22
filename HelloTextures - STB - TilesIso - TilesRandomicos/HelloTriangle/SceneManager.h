@@ -45,6 +45,9 @@ public:
 	void tileWalking();
 	void lerArqTile(string caminho);
 
+	bool checkTriangleCollision(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD, glm::vec2 mousePos);
+	int calculaArea(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD);
+
 	string tile;
 	int largura, altura;
 	Tela telaAtual;
@@ -96,6 +99,8 @@ private:
 	glm::vec3 multScale[9];
 
 	int size[9][2];
+
+	glm::vec2 vTopLeft, vDownLeft, vTopRight, vDownRight;
 
 };
 

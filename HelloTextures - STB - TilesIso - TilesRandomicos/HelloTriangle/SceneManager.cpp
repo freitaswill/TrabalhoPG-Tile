@@ -172,6 +172,10 @@ void SceneManager::render()
 	// Bind Textures using texture units
 	glfwGetCursorPos(window, &xpos, &ypos);
 
+	//Normalizando coordenadas de mouse
+	/*xpos = xpos / 400.0f;
+	ypos = ypos / 300.0f;*/
+
 	xpos -= width * 0.5f;
 	ypos -= height * 0.5f;
 
@@ -183,32 +187,48 @@ void SceneManager::render()
 
 	//mouse_grid_y += mouse_grid_x;
 
-	
-
-
 	/*int mouse_grid_x = xpos / 128;//(size[text - 1][0] / qtdSpritesX);
 	int mouse_grid_y = ypos / 64;
 
 	mouse_grid_x = mouse_grid_x - mouse_grid_y / 2;
 	mouse_grid_y = mouse_grid_x + mouse_grid_y / 2;*/
 
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
-	{
-		cout << mouse_grid_x << " " << mouse_grid_y << endl;
-	}
-
-	cout << mouse_grid_x << " " << mouse_grid_y << endl;
+	//cout << mouse_grid_x << " " << mouse_grid_y << endl;
 
 	for (int i = 0; i < largura; ++i) {
 		for (int j = 0; j < altura; ++j) {
+
+			/*vTopLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+			vTopRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+			vDownLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+			vDownRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));*/
+
+			vTopLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
+			vTopRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
+			vDownLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+			vDownRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+
 			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2))
-			{
-				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
+			{	
+				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 0);
+
+				if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2(mouse_grid_x, mouse_grid_y)) == true)
+				{
+					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
+					//std::cout << "Colidiu" << endl;
+				}
+
+				//draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 0, 1);
 				/*if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
 				{
 					characterPositionX = ;
 					characterPositionY = ;
 				}*/
+
+				//Calcula da área para detectar a colisão
+				//Se area(ABD) for == area(ApB) + area(BpD) + area(DpA) então tem colisao
+				//Criar uma função colisa(área do triangulo, ponto)
+
 			}
 			else
 			{
@@ -216,6 +236,12 @@ void SceneManager::render()
 			}
 
 		} 
+	}
+
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
+	{
+		cout << vTopLeft.x << endl;
 	}
 
 	if (velSprites % 15 == 0) {
@@ -669,4 +695,24 @@ void SceneManager::lerArqTile(string caminho)
 		tilemap.close();
 
 	}
+}
+
+bool SceneManager::checkTriangleCollision(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD, glm::vec2 mousePos)
+{
+	if (calculaArea(vertA, vertB, vertD) == calculaArea(vertA, mousePos, vertB) + calculaArea(mousePos, vertB, vertD) + calculaArea(vertA, mousePos, vertD))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int SceneManager::calculaArea(glm::vec2 vertA, glm::vec2 vertB, glm::vec2 vertD)
+{	
+	//(X2, X1) * (Y3, Y1) - (X3, X1) * (Y2, Y1)
+	int area = abs(((vertB.x - vertA.x) * (vertD.y - vertA.y) - (vertD.x - vertA.x) * (vertB.y - vertA.y)) / 2);
+
+	return area;
 }
