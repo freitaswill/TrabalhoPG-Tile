@@ -111,8 +111,6 @@ void SceneManager::render()
 {
 	srand(time(0));
 
-
-
 	// Clear the colorbuffer
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -125,8 +123,6 @@ void SceneManager::render()
 	offsetX = float();
 
 	// Get their uniform location
-
-
 	// Pass them to the shaders
 
 	if (resized) //se houve redimensionamento na janela, redefine a projection matrix
@@ -136,14 +132,6 @@ void SceneManager::render()
 	}
 
 	tileWalking();
-
-	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS && jumping == false) {
-		jumping = true;
-		characterPositionX += 1.0f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_RELEASE) {
-		jumping = false;
-	}
 
 	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS /*&& jumping == false*/) {
 		/*jumping = true;*/
@@ -159,32 +147,30 @@ void SceneManager::render()
 		xpos *= -1;
 		ypos *= -1;
 	}
-
+	mapaPintados[tileY][tileX] = 1;
 	
 	for (int i = 0; i < largura; ++i) {
 		for (int j = 0; j < altura; ++j) {
 
-			/*vTopLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
-			vTopRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
-			vDownLeft = glm::vec2(-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
-			vDownRight = glm::vec2(-xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));*/
+			
 
 			vTopLeft   = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
 			vTopRight  = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
 			vDownLeft  = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
 			vDownRight = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
 
-			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2)){	
+			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) || mapaPintados[j][i] == 1){
 				if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2(-xpos/400.0f, ypos/300.0f)) == true){
 					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
 				}
 				else if (checkTriangleCollision(vTopRight, vDownLeft, vDownRight, glm::vec2(-xpos / 400.0f, ypos / 300.0f)) == true) {
 					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
-
+				}
+				else if (mapaPintados[j][i] == 1) {
+					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 2);
 				}
 				else {
 					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
-
 				}
 			}
 			else{
@@ -221,12 +207,12 @@ void SceneManager::run(){
 		double currentTime = glfwGetTime();
 		nbFrames += 1;
 		velSprites += 1;
-		if (currentTime - lastTime >= 0.016f) { // If last prinf() was more than 1 sec ago
+		if (currentTime - lastTime >= 0.066f) { // If last prinf() was more than 1 sec ago
 												// printf and reset timer
 			//cout << "frames\n" << 1000.0 / double(nbFrames);
 			nbFrames = 0;
 			velSprites += 1;
-			lastTime += 0.016f;
+			lastTime += 0.066f;
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 
@@ -451,58 +437,65 @@ int SceneManager::checkButton(double x, double y, int id){
 }
 
 void SceneManager::tileWalking(){
-	if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX + 1][tileY] != 0) {
-		xAux = characterPositionX;
-		yAux = characterPositionY;
-		direcao = 3;
-	}
-	else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX - 1][tileY] != 0) {
-		yAux = characterPositionY;
-		xAux = characterPositionX;
-		direcao = 4;
-	}
-	else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX][tileY - 1] != 0) {
-		yAux = characterPositionY;
-		xAux = characterPositionX;
-		direcao = 1;
-	}
-	else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX][tileY + 1] != 0) {
-		yAux = characterPositionY;
-		xAux = characterPositionX;
-		direcao = 2;
-	}
-	if (direcao == 1) {
-		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
-		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
-		if (characterPositionY + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) >= yAux) {
-			direcao = 0;
-			tileY -= 1;
+
+	cout << "Tile X " << tileX << " " << "Tile Y " << tileY << endl;
+
+	if (tileX >= 0 && tileX < largura && tileY >= 0 && tileY < altura) {
+		if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX - 1][tileY + 1] == 1*/  tileX - 1 >= 0 && tileY + 1 < altura) {
+			xAux = characterPositionX;
+			yAux = characterPositionY;
+			direcao = 3;
+		}
+		else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX + 1][tileY - 1] == 1*/ tileX + 1 < largura && tileY - 1 >= 0) {
+			yAux = characterPositionY;
+			xAux = characterPositionX;
+			direcao = 4;
+		}
+		else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX][tileY + 1] == 1*/ tileY + 1 < altura) {
+			yAux = characterPositionY;
+			xAux = characterPositionX;
+			direcao = 1;
+		}
+		else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX][tileY - 1] == 1*/ tileY - 1 >= 0) {
+			yAux = characterPositionY;
+			xAux = characterPositionX;
+			direcao = 2;
+		}
+		if (direcao == 1) {
+			characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2);
+			characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2);
+				direcao = 0;
+				tileY += 1;
+		}
+		else if (direcao == 2) {
+			characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2);
+			characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2);
+				direcao = 0;
+				tileY -= 1;
+		}
+		else if (direcao == 3) {
+			characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2);
+			characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2);
+				direcao = 0;
+				tileX -= 1;
+				tileY += 1;
+		}
+		else if (direcao == 4) {
+			characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2);
+			characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2);
+				direcao = 0;
+				tileX += 1;
+				tileY -= 1;
 		}
 	}
-	else if (direcao == 2) {
-		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
-		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
-		if (characterPositionY - (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) <= yAux) {
-			direcao = 0;
-			tileY += 1;
-		}
+	else {
+		characterPositionX = 0;
+		characterPositionY = 0;
+		tileX = 0;
+		tileY = 0;
 	}
-	else if (direcao == 3) {
-		characterPositionX += ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
-		characterPositionY -= ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
-		if (characterPositionX - (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) <= xAux) {
-			direcao = 0;
-			tileX += 1;
-		}
-	}
-	else if (direcao == 4) {
-		characterPositionX -= ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])/2);
-		characterPositionY += ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])/2);
-		if (characterPositionX + (scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) >= xAux) {
-			direcao = 0;
-			tileX -= 1;
-		}
-	}
+
+
 }
 
 void SceneManager::lerArqTile(string caminho){

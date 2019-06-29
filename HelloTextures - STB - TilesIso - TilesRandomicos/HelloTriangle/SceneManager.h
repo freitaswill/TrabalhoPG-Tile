@@ -59,6 +59,7 @@ private:
 	int tileX = 0, tileY = 0, xAux = 0, yAux = 0;
 	int mapaX[3][3]; //o que deveria estar entre os colchetes?
 	int mapaY[3][3];
+	int mapaPintados[3][3]{};
 	int mapaCaminhavel[3][3];
 	int vel = 0.1f;
 
@@ -68,7 +69,6 @@ private:
 	GLfloat obstaculoX[7]{ 7, 8, 9, 3, 4, 5, 6 }, obstaculoY[7]{ 0, 1, 2, 3, 4, 5, 6 };
 	double xpos, ypos;
 	int mouse_grid_x, mouse_grid_y;
-	bool jumping = false, caindo = false;
 	GLfloat qtdSpritesX[9];
 	GLfloat qtdSpritesY[9];
 	int velSprites = 0;
