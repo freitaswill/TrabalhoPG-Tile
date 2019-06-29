@@ -22,8 +22,12 @@ void main()
 	}
 	else if(clique == 2)
 	{
-	ourColor = vec3(5.0, 1.0, 1.0);
+	ourColor = vec3(5.0, 1.0, 3.0);
 	}
+	/*else if(clique == 3)
+	{
+	ourColor = vec3(1.0, 60.0, 1.0);
+	}*/
 	else
 	{
 		ourColor = color;

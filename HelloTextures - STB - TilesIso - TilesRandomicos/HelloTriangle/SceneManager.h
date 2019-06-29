@@ -53,22 +53,24 @@ public:
 
 	string tile;
 	int largura, altura;
-	Tela telaAtual;
+	Tela telaAtual = tMenu;
 
 private:
 
 	//espero que seja isso
 	int direcao = 0;
-	int tileX = 0, tileY = 0, xAux = 0, yAux = 0;
-	int mapaX[3][3]; //o que deveria estar entre os colchetes?
-	int mapaY[3][3];
-	int mapaPintados[3][3]{};
-	int mapaCaminhavel[3][3];
+	int tileX = 6, tileY = 0, xAux = 0, yAux = 0;
+	int mapaX[20][20]; //o que deveria estar entre os colchetes?
+	int mapaY[20][20];
+	int mapaPintados[20][20]{};
+	int mapaCaminhavel[20][20];
 	int vel = 0.1f;
+	float xMin = 0.0, xMax = 800.0, yMin = 600.0, yMax = 0.0, zNear = -1.0, zFar = 1.0;
 
 	int telaGameOver;
 	GLchar *path;
-	GLfloat characterPositionX = 0, characterPositionY = 0, offsetBG1, offsetBG2;
+	GLfloat characterPositionX = -1, characterPositionY = -1, offsetBG1, offsetBG2;
+	GLfloat characterPositionXAux, characterPositionYAux;
 	GLfloat obstaculoX[7]{ 7, 8, 9, 3, 4, 5, 6 }, obstaculoY[7]{ 0, 1, 2, 3, 4, 5, 6 };
 	double xpos, ypos;
 	int mouse_grid_x, mouse_grid_y;

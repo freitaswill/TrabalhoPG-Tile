@@ -136,67 +136,118 @@ void SceneManager::render()
 
 	tileWalking();
 
-	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS /*&& jumping == false*/) {
-		/*jumping = true;*/
-		for (int i = 0; i < 7; i++) {
-			obstaculoX[i] += 0.035f;
+	if (telaAtual == tJogo) {
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) {
+			glfwGetCursorPos(window, &xpos, &ypos);
+			xpos -= (width * 0.5f);
+			ypos -= (height * 0.5f);
+
+			xpos *= -1;
+			ypos *= -1;
+
 		}
-	}
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) {
-		glfwGetCursorPos(window, &xpos, &ypos);
-		xpos -= width * 0.5f;
-		ypos -= height * 0.5f;
+		mapaPintados[tileY][tileX] = 1;
 
-		xpos *= -1;
-		ypos *= -1;
-	}
-	mapaPintados[tileY][tileX] = 1;
-	
-	for (int i = 0; i < largura; ++i) {
-		for (int j = 0; j < altura; ++j) {
+		for (int i = 0; i < largura; ++i) {
+			for (int j = 0; j < altura; ++j) {
 
-			
 
-			vTopLeft   = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
-			vTopRight  = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
-			vDownLeft  = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
-			vDownRight = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j),(((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
 
-			if (-xpos / 400.0f >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && -xpos / 400.0f <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && ypos / 300.0f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && ypos / 300.0f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) || mapaPintados[j][i] == 1){
-				if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2(-xpos/400.0f, ypos/300.0f)) == true){
-					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
+				vTopLeft = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
+				vTopRight = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2), (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i));
+				vDownLeft = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j), (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+				vDownRight = glm::vec2((((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j), (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2));
+
+				if ((-xpos / 400.0f) + 1 >= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) - (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && (-xpos / 400.0f) + 1 <= (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j) + (((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1])) / 2) && (ypos / 300.0f) + 2.3f >= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) - (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) && (ypos / 300.0f) + 2.3f <= (((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i) + (((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1])) / 2) || mapaPintados[j][i] == 1) {
+					if (checkTriangleCollision(vTopLeft, vDownLeft, vDownRight, glm::vec2((-xpos / 400.0f) + 1, (ypos / 300.0f) + 2.3f)) == true) {
+						draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
+					}
+					else if (checkTriangleCollision(vTopRight, vDownLeft, vDownRight, glm::vec2((-xpos / 400.0f) + 1, (ypos / 300.0f) + 2.3f)) == true) {
+						draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
+					}
+					else if (mapaPintados[j][i] == 1) {
+						draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 2);
+					}
+					else {
+						draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
+					}
 				}
-				else if (checkTriangleCollision(vTopRight, vDownLeft, vDownRight, glm::vec2(-xpos / 400.0f, ypos / 300.0f)) == true) {
-					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 1);
-				}
-				else if (mapaPintados[j][i] == 1) {
-					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 2);
+				else if (mapaCaminhavel[i][j] == 0) {
+					draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
+					draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], 2, glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], 9, 0);
 				}
 				else {
-					draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
+					draw(glm::vec3(-1 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j - 2.3 + (scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
 				}
 			}
-			else{
-				draw(glm::vec3(0 + ((scale[texture[1] - 1].x / qtdSpritesX[texture[1] - 1]) / 2)*j, ((0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) / 2)*j + (0 + scale[texture[1] - 1].y / qtdSpritesY[texture[1] - 1]) * i, 0), texture[1], mapaX[j][i], glm::vec3(1.0f, 1.0f, 1), qtdSpritesX[texture[1] - 1], qtdSpritesY[texture[1] - 1], mapaY[j][i], 0);
-			}
-		} 
-	}
-
-
-
-	if (velSprites % 15 == 0) {
-		spritesheet += 1.0f;
-	}
-
-	draw(glm::vec3(characterPositionX, characterPositionY, 0), texture[4], 0, glm::vec3(2, 2, 1), 4, 4, spritesheet, 0);
-
-	for (int i = 0; i < 7; i++)
-		draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1 , 0, 0);
-
-	for (int i = 0; i <7; i++)
-		if (checkCollision(texture[2] - 1, texture[1] - 1, glm::vec3(obstaculoX[i], obstaculoY[i], 1))){
-			telaAtual = tGameOver;
 		}
+
+		if (characterPositionX != characterPositionXAux) {
+			xMin += characterPositionX;
+			yMin += characterPositionY;
+			setupCamera2D();
+		}
+		
+		characterPositionXAux = characterPositionX;
+		characterPositionYAux = characterPositionY;
+
+
+		if (velSprites % 15 == 0) {
+			spritesheet += 1.0f;
+		}
+
+		draw(glm::vec3(characterPositionX, characterPositionY, 0), texture[4], 0, glm::vec3(2, 2, 1), 4, 4, spritesheet, 0);
+
+		for (int i = 0; i < 7; i++)
+			draw(glm::vec3(obstaculoX[i], obstaculoY[i], 0), texture[2], 0, glm::vec3(1, 1, 1), 1, 1, 0, 0);
+
+		for (int i = 0; i < 7; i++)
+			if (checkCollision(texture[2] - 1, texture[1] - 1, glm::vec3(obstaculoX[i], obstaculoY[i], 1))) {
+				telaAtual = tGameOver;
+			}
+	}
+	else if (telaAtual == tMenu) {
+		draw(glm::vec3(0, 0, 0), texture[3], 0, glm::vec3(1, 1, 1), 1, 1, 0, 0);
+
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		if (xpos > 660 && xpos < 788 && ypos > 444 && ypos < 473 && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			telaAtual = tJogo;
+		}
+
+		if (xpos > 639 && xpos < 788 && ypos > 515 && ypos < 545 && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			telaAtual = tCreditos;
+		}
+
+		if (xpos > 627 && xpos < 788 && ypos > 480 && ypos < 509 && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			telaAtual = tInstrucoes;
+		}
+
+		if (xpos > 670 && xpos < 788 && ypos > 552 && ypos < 580 && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			telaAtual = sair;
+		}
+	}
+	else if (telaAtual == tCreditos)
+	{
+		draw(glm::vec3(0, 0, 0), texture[5], 0, glm::vec3(1, 1, 1), 1, 1, 0, 0);
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			telaAtual = tMenu;
+		}
+	}
+
+	else if (telaAtual == tInstrucoes)
+	{
+		draw(glm::vec3(0, 0, 0), texture[6], 0, glm::vec3(1, 1, 1), 1, 1, 0, 0);
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			telaAtual = tMenu;
+		}
+	}
 }
 
 
@@ -286,7 +337,7 @@ void SceneManager::setupScene(){
 
 	texture[2] = setupTexture("../textures/tile1.png");
 
-	texture[3] = setupTexture("../textures/tMenu.png");
+	texture[3] = setupTexture("../textures/telaMenu.png");
 
 	texture[4] = setupTexture("../textures/george.png");
 
@@ -305,7 +356,7 @@ void SceneManager::setupScene(){
 void SceneManager::setupCamera2D(){
 	//corrigindo o aspecto
 	float ratio;
-	float xMin = 0.0, xMax = 800.0, yMin = 600.0, yMax = 0.0, zNear = -1.0, zFar = 1.0;
+	
 
 
 	// Get their uniform location
@@ -448,22 +499,22 @@ void SceneManager::tileWalking(){
 	cout << "Tile X " << tileX << " " << "Tile Y " << tileY << endl;
 
 	if (tileX >= 0 && tileX < largura && tileY >= 0 && tileY < altura) {
-		if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX - 1][tileY + 1] == 1*/  tileX - 1 >= 0 && tileY + 1 < altura) {
+		if ((glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX - 1][tileY + 1] == 1 &&  tileX - 1 >= 0 && tileY + 1 < altura) {
 			xAux = characterPositionX;
 			yAux = characterPositionY;
 			direcao = 3;
 		}
-		else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX + 1][tileY - 1] == 1*/ tileX + 1 < largura && tileY - 1 >= 0) {
+		else if ((glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX + 1][tileY - 1] == 1 && tileX + 1 < largura && tileY - 1 >= 0) {
 			yAux = characterPositionY;
 			xAux = characterPositionX;
 			direcao = 4;
 		}
-		else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX][tileY + 1] == 1*/ tileY + 1 < altura) {
+		else if ((glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX][tileY + 1] == 1 && tileY + 1 < altura) {
 			yAux = characterPositionY;
 			xAux = characterPositionX;
 			direcao = 1;
 		}
-		else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && /*mapaCaminhavel[tileX][tileY - 1] == 1*/ tileY - 1 >= 0) {
+		else if ((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)) == GLFW_PRESS && direcao == 0 && mapaCaminhavel[tileX][tileY - 1] == 1 && tileY - 1 >= 0) {
 			yAux = characterPositionY;
 			xAux = characterPositionX;
 			direcao = 2;
@@ -494,12 +545,6 @@ void SceneManager::tileWalking(){
 				tileX += 1;
 				tileY -= 1;
 		}
-	}
-	else {
-		characterPositionX = 0;
-		characterPositionY = 0;
-		tileX = 0;
-		tileY = 0;
 	}
 
 
@@ -537,7 +582,7 @@ void SceneManager::lerArqTile(string caminho){
 				for (int x = 0; x < altura; x++)
 				{
 					tilemap >> iToken;
-					mapaCaminhavel[x][y] = iToken;
+					mapaCaminhavel[y][x] = iToken;
 				}
 
 			tilemap.close();
