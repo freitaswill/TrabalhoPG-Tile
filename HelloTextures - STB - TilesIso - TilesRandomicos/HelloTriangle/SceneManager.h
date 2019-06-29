@@ -9,9 +9,6 @@
 #include <iostream>
 #include <ctime>
 
-//irrKlang
-
-
 
 enum Tela { tJogo, tMenu, tCreditos, tInstrucoes, tGameOver, sair };
 
@@ -106,5 +103,6 @@ private:
 	int size[9][2];
 
 	glm::vec2 vTopLeft, vDownLeft, vTopRight, vDownRight;
+
 };
 

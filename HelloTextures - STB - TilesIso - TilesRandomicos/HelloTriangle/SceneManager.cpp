@@ -1,8 +1,5 @@
 #include "SceneManager.h"
-#include <irrKlang.h>
-using namespace irrklang;
 
-//ISoundEngine *SoundEngine = createIrrKlangDevice();
 
 //static controllers for mouse and keyboard
 
@@ -216,10 +213,6 @@ void SceneManager::run(){
 			nbFrames = 0;
 			velSprites += 1;
 			lastTime += 0.066f;
-
-			//Play sound while game is running
-			//SoundEngine->play2D("audio/bensound-happyrock.mp3", GL_TRUE);
-
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 
